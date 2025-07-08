@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\TheoOdendaal\\Documents\\projects\\Swifty\\BirdRacing\\BirdRacing.csproj": {}
+    "C:\\Users\\TheoOdendaal\\Documents\\projects\\BirdRacing\\BirdRacing.csproj": {}
   },
   "projects": {
-    "C:\\Users\\TheoOdendaal\\Documents\\projects\\Swifty\\BirdRacing\\BirdRacing.csproj": {
+    "C:\\Users\\TheoOdendaal\\Documents\\projects\\BirdRacing\\BirdRacing.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\TheoOdendaal\\Documents\\projects\\Swifty\\BirdRacing\\BirdRacing.csproj",
+        "projectUniqueName": "C:\\Users\\TheoOdendaal\\Documents\\projects\\BirdRacing\\BirdRacing.csproj",
         "projectName": "BirdRacing",
-        "projectPath": "C:\\Users\\TheoOdendaal\\Documents\\projects\\Swifty\\BirdRacing\\BirdRacing.csproj",
+        "projectPath": "C:\\Users\\TheoOdendaal\\Documents\\projects\\BirdRacing\\BirdRacing.csproj",
         "packagesPath": "C:\\Users\\TheoOdendaal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\TheoOdendaal\\Documents\\projects\\Swifty\\BirdRacing\\obj\\",
+        "outputPath": "C:\\Users\\TheoOdendaal\\Documents\\projects\\BirdRacing\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
