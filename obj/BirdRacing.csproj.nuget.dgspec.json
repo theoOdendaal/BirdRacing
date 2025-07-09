@@ -1,32 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\TheoOdendaal\\Documents\\projects\\Swifty\\BirdRacing\\BirdRacing.csproj": {}
+    "C:\\GitHub\\BirdRacing\\BirdRacing.csproj": {}
   },
   "projects": {
-    "C:\\Users\\TheoOdendaal\\Documents\\projects\\Swifty\\BirdRacing\\BirdRacing.csproj": {
+    "C:\\GitHub\\BirdRacing\\BirdRacing.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\TheoOdendaal\\Documents\\projects\\Swifty\\BirdRacing\\BirdRacing.csproj",
+        "projectUniqueName": "C:\\GitHub\\BirdRacing\\BirdRacing.csproj",
         "projectName": "BirdRacing",
-        "projectPath": "C:\\Users\\TheoOdendaal\\Documents\\projects\\Swifty\\BirdRacing\\BirdRacing.csproj",
-        "packagesPath": "C:\\Users\\TheoOdendaal\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\TheoOdendaal\\Documents\\projects\\Swifty\\BirdRacing\\obj\\",
+        "projectPath": "C:\\GitHub\\BirdRacing\\BirdRacing.csproj",
+        "packagesPath": "C:\\Users\\schol\\.nuget\\packages\\",
+        "outputPath": "C:\\GitHub\\BirdRacing\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\TheoOdendaal\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\schol\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
