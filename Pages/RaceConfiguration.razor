@@ -1,0 +1,27 @@
+@page "/RaceConfiguration"
+
+<PageTitle>Race Configuration</PageTitle>
+
+<h1>Configuration</h1>
+
+
+
+@if (showTextboxes)
+{
+    <div class="d-flex gap-2">
+        <input type="text" class="form-control" placeholder="Textbox 1" />
+        <input type="text" class="form-control" placeholder="Textbox 2" />
+        <input type="text" class="form-control" placeholder="Textbox 3" />
+    </div>
+}
+
+<button class="btn btn-primary" @onclick="ShowTextboxes">New Race</button>
+
+@code {
+    private bool showTextboxes = false;
+
+    private void ShowTextboxes()
+    {
+        showTextboxes = true;
+    }
+}

@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("BirdRacing")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+014ab174b12ae4b104f51e746dfcd2d8bcdfd3b3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+63689014c87b071a922b2ac5764dcc57070aa771")]
 [assembly: System.Reflection.AssemblyProductAttribute("BirdRacing")]
 [assembly: System.Reflection.AssemblyTitleAttribute("BirdRacing")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
