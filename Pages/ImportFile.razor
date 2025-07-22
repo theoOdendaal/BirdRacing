@@ -11,6 +11,7 @@
 @* <button class="btn btn-primary" @onclick="IncrementCount">Click me</button> *@
 
 @code {
+    @using ExcelDataReader;
     private int currentCount = 0;
 
     private void IncrementCount()
@@ -22,16 +23,37 @@
     {
         // Handle file import logic here
         var file = e.File;
-        // Example: read file name
         var fileName = file.Name;
 
-        // You can read the file content if needed
-        var buffer = new byte[file.Size];
-        await file.OpenReadStream().ReadAsync(buffer);
+        // Limit file size for reading (e.g., 10 MB)
+        const long maxFileSize = 10 * 1024 * 1024;
+        using var stream = file.OpenReadStream(maxFileSize);
 
-        // Process the file as needed
-        Console.WriteLine($"File selected: {fileName}, Size: {file.Size} bytes");
-        
-        // Add your file processing code here
+        // Use a library like ExcelDataReader to read XLS files
+        using var memoryStream = new MemoryStream();
+        await stream.CopyToAsync(memoryStream);
+        memoryStream.Position = 0;
+
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
+
+        using var reader = ExcelDataReader.ExcelReaderFactory.CreateReader(memoryStream);
+        var result = reader.AsDataSet();
+
+        // Example: Read first sheet and print cell values
+        var table = result.Tables[0];
+
+        List<List<string>> columnNames = new List<List<string>>();
+
+        for (int row = 0; row < table.Rows.Count; row++)
+        {
+            List<string> rowValues = new List<string>();
+            for (int col = 0; col < table.Columns.Count; col++)
+            {
+            var cellValue = table.Rows[row][col]?.ToString();
+            Console.WriteLine($"Cell[{row},{col}]: {cellValue}");
+            }
+        }
+
+        string[,] cellValues = new string[table.Rows.Count, table.Columns.Count];
     }
 }
