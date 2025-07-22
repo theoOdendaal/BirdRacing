@@ -1,8 +1,10 @@
 @page "/configuration"
 @using System.Collections.Generic
+@using FuzzySharp
 
 <h3>Configuration</h3>
 
+<!-- Dropdown list -->
 <select @bind="SelectedOption" class="form-select mb-3">
     @foreach (var option in Options)
     {
@@ -10,22 +12,40 @@
     }
 </select>
 
-@if (SelectedOption == "Birds")
+<!-- Search box -->
+<input type="text" value="@SearchTerm" @oninput="OnSearchChanged" class="form-control mb-3" placeholder="Search..." />
+
+@if (SelectedOption == "Races")
 {
-    <h4>Registered Birds</h4>
+    <h4>Race</h4>
+
     <table class="table">
         <thead>
             <tr>
                 <th>Name</th>
-                <th>Ring Number</th>
+                <th>Date</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var bird in Birds)
+            <!-- Editable row for new bird -->
+            <tr>
+                <td>
+                    <input @bind="NewRace.Name" class="form-control" placeholder="Race name" />
+                </td>
+                <td>
+                    <input @bind="NewRace.Date" class="form-control" placeholder="Race date" />
+                </td>
+                <td>
+                    <button class="btn btn-success" @onclick="AddRace">Add</button>
+                </td>
+            </tr>
+
+            @foreach (var race in FilteredRaces)
             {
                 <tr>
-                    <td>@bird.Name</td>
-                    <td>@bird.RingNumber</td>
+                    <td>@race.Name</td>
+                    <td>@race.Date</td>
                 </tr>
             }
         </tbody>
@@ -37,16 +57,18 @@ else if (SelectedOption == "Clubs")
     <table class="table">
         <thead>
             <tr>
-                <th>Club Name</th>
-                <th>Date</th>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Location</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var club in Clubs)
+            @foreach (var club in FilteredClubs)
             {
                 <tr>
+                    <td>@club.Id</td>
                     <td>@club.Name</td>
-                    <td>@club.Date</td>
+                    <td>@club.Location</td>
                 </tr>
             }
         </tbody>
@@ -54,34 +76,94 @@ else if (SelectedOption == "Clubs")
 }
 
 @code {
-    private string SelectedOption = "Birds";
 
-    // Cofiguration settings available
-    private List<string> Options = new() { "Birds", "Clubs" };
+    private void OnSearchChanged(ChangeEventArgs e)
+    {
+        SearchTerm = e.Value?.ToString() ?? "";
+        StateHasChanged();
+    }
 
-    // Temporary list of registered birds.
-    private List<Bird> Birds = new()
+    private string SelectedOption = "Races";
+    private string SearchTerm = "";
+
+    private List<string> Options = new() { "Races", "Clubs" };
+
+    private List<Race> Races = new()
 {
-new Bird { Name = "Falcon", RingNumber = "F123" },
-new Bird { Name = "Pigeon", RingNumber = "P456" },
+new Race { Name = "Bloemhof1", Date = "BB" },
+new Race { Name = "Bloemhof2", Date = "ANDA" },
 };
 
-    // Temporary list of registered birds.
     private List<Club> Clubs = new()
 {
-new Club { Name = "Cape Flyers", Date = "Cape Town" },
-new Club { Name = "Jozi Racers", Date = "Johannesburg" },
+new Club { Id = "NDKD", Name = "Noordheuwel Duiwe Klub", Location = "Noordheuwel" },
+new Club { Id = "CPT", Name = "Cape Town", Location = "Cape Town" },
 };
 
-    private class Bird
+    private class Race
     {
-        public string Name { get; set; } = String.Empty;
-        public string RingNumber { get; set; } = String.Empty;
+        public string Name { get; set; } = string.Empty;
+        public string Date { get; set; } = string.Empty;
     }
 
     private class Club
     {
-        public string Name { get; set; } = String.Empty;
-        public string Date { get; set; } = String.Empty;
+        public string Id { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
+        public string Location { get; set; } = string.Empty;
     }
+
+    private Race NewRace = new();
+    private Club NewClub = new();
+
+    private void AddRace()
+    {
+        if (!string.IsNullOrWhiteSpace(NewRace.Name))
+        {
+            Races.Add(new Race
+            {
+                Name = NewRace.Name,
+                Date = NewRace.Date,
+            });
+
+            NewRace = new();
+        }
+    }
+
+    private void AddClub()
+    {
+        if (!string.IsNullOrWhiteSpace(NewClub.Id))
+        {
+            Clubs.Add(new Club
+            {
+                Id = NewClub.Id,
+                Name = NewClub.Name,
+                Location = NewClub.Location
+            });
+
+            NewClub = new();
+        }
+    }
+
+
+    private bool IsFuzzyMatch(string combinedText, string searchTerm)
+    {
+        if (string.IsNullOrWhiteSpace(combinedText) || string.IsNullOrWhiteSpace(searchTerm))
+            return false;
+
+        int score = Fuzz.PartialRatio(combinedText.ToLower(), searchTerm.ToLower());
+        return score >= 70;
+    }
+
+    private IEnumerable<Race> FilteredRaces =>
+    string.IsNullOrWhiteSpace(SearchTerm)
+    ? Races
+    : Races.Where(r => IsFuzzyMatch($"{r.Name} {r.Date}", SearchTerm));
+
+    private IEnumerable<Club> FilteredClubs =>
+    string.IsNullOrWhiteSpace(SearchTerm)
+    ? Clubs
+    : Clubs.Where(c => IsFuzzyMatch($"{c.Id}{c.Name}{c.Location}", SearchTerm)
+    );
+
 }
