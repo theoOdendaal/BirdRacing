@@ -1,3 +1,5 @@
+using System.Security.AccessControl;
+
 namespace BirdRacing.DataModels
 {
     public class RaceImportFile
@@ -7,7 +9,7 @@ namespace BirdRacing.DataModels
         public string ImportDate { get; set; }
         public string ImportStatus { get; set; }
         public string ErrorMessage { get; set; }
-        public RaceData Data { get; set; }
+        public List<RaceData> Data { get; set; }
 
         public RaceImportFile()
         {
@@ -16,10 +18,10 @@ namespace BirdRacing.DataModels
             ImportDate = string.Empty;
             ImportStatus = "Pending";
             ErrorMessage = string.Empty;
-            Data = new RaceData();
+            Data = new List<RaceData>();
         }
 
-        public RaceImportFile(string fileName, string filePath, string importDate, string importStatus, string errorMessage, RaceData data)
+        public RaceImportFile(string fileName, string filePath, string importDate, string importStatus, string errorMessage, List<RaceData> data)
         {
             FileName = fileName;
             FilePath = filePath;

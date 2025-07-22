@@ -4,10 +4,9 @@ namespace BirdRacing.DataModels
 {
     public class RaceData
     {
+        public int Position { get; set; }
         public string RaceName { get; set; }
         public string RaceDate { get; set; }
-
-        public int Position { get; set; }
         public string LoftName { get; set; }
         public string ClubId { get; set; }
         public int RingYear { get; set; }
@@ -60,6 +59,11 @@ namespace BirdRacing.DataModels
             TimeOfArrival = timeOfArrival;
             Distance = distance;
             Velocity = velocity;
+        }
+
+        public static implicit operator List<object>(RaceData v)
+        {
+            throw new NotImplementedException();
         }
     }
 }
