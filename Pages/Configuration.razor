@@ -1,27 +1,87 @@
 @page "/configuration"
-@using System.Collections
-@inject HttpClient Http
+@using System.Collections.Generic
 
-<PageTitle>Configuration</PageTitle>
+<h3>Configuration</h3>
 
-<h1>Weather</h1>
+<select @bind="SelectedOption" class="form-select mb-3">
+    @foreach (var option in Options)
+    {
+        <option value="@option">@option</option>
+    }
+</select>
+
+@if (SelectedOption == "Birds")
+{
+    <h4>Registered Birds</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Ring Number</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var bird in Birds)
+            {
+                <tr>
+                    <td>@bird.Name</td>
+                    <td>@bird.RingNumber</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (SelectedOption == "Clubs")
+{
+    <h4>Registered Clubs</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Club Name</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var club in Clubs)
+            {
+                <tr>
+                    <td>@club.Name</td>
+                    <td>@club.Date</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
 
 @code {
-    private WeatherForecast[]? forecasts;
+    private string SelectedOption = "Birds";
 
-    protected override async Task OnInitializedAsync()
+    // Cofiguration settings available
+    private List<string> Options = new() { "Birds", "Clubs" };
+
+    // Temporary list of registered birds.
+    private List<Bird> Birds = new()
+{
+new Bird { Name = "Falcon", RingNumber = "F123" },
+new Bird { Name = "Pigeon", RingNumber = "P456" },
+};
+
+    // Temporary list of registered birds.
+    private List<Club> Clubs = new()
+{
+new Club { Name = "Cape Flyers", Date = "Cape Town" },
+new Club { Name = "Jozi Racers", Date = "Johannesburg" },
+};
+
+    private class Bird
     {
-        forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("sample-data/weather.json");
+        public string Name { get; set; } = String.Empty;
+        public string RingNumber { get; set; } = String.Empty;
     }
 
-    public class WeatherForecast
+    private class Club
     {
-        public DateOnly Date { get; set; }
-
-        public int TemperatureC { get; set; }
-
-        public string? Summary { get; set; }
-
-        public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
+        public string Name { get; set; } = String.Empty;
+        public string Date { get; set; } = String.Empty;
     }
 }
